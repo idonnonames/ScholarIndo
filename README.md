@@ -1,1 +1,1 @@
-A website containing scholarship information
+A website containing information about Indonesia scholarship information. It is aimed at making education available to everyone
