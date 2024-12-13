@@ -3,39 +3,39 @@ const features = [
   {
     id: 'expertise-1',
     name: 'Beasiswa Indonesia Maju (BIM)',
-    description: 'Aimed at students who excel in academic or non-academic fields...',
-    link: 'https://bim-pusatprestasinasional.kemdikbud.go.id'
+    description:
+      'Aimed at students who excel in academic or non-academic fields. It consists of a degree scholarship programme, which provides funding for undergraduate and postgraduate degrees at home and abroad, and non-degree scholarships, which provide preparatory classes for undergraduate degrees abroad.',
   },
   {
     id: 'expertise-2',
     name: 'Australian Awards Scholarship',
-    description: 'Covers majors that are rarely in demand...',
-    link: 'https://www.australiaawardsindonesia.org'
+    description:
+      'Covers majors that are rarely in demand and do not exist in Indonesia. It offers two types of scholarships: those for master's or doctoral degrees and intensive short course programmes. The most promising candidates will be awarded scholarships after a competitive selection process.',
   },
   {
     id: 'expertise-3',
     name: 'Lembaga Pengelola Dana Pendidikan (LPDP)',
-    description: 'Offers affirmation scholarships...',
-    link: 'https://lpdp.kemenkeu.go.id'
+    description:
+      'Offers affirmation scholarships, which are for people from affirmation areas, and regular scholarships. Provided by the Ministry of Finance for master's and doctoral study programmes at home and abroad. Candidates who excel in both academic and non-academic matters will be selectively chosen.',
   },
   {
     id: 'expertise-4',
     name: 'MEXT (Monbukagakusho)',
-    description: 'Offers College of Technology and Professional Training College programmes...',
-    link: 'https://www.studyinjapan.go.jp/en/smap-stopj-applications-mext.html'
+    description:
+      'Offers College of Technology and Professional Training College programmes for high school graduates, Research Student programmes for college graduates, undergraduates and Japanese Studies programmes for Japanese studies students. Includes living and study costs.',
   },
   {
     id: 'expertise-5',
     name: 'Beasiswa Bidikmisi',
-    description: 'Commonly referred to as the Smart Indonesia Card programme...',
-    link: 'https://bidikmisi.belmawa.ristekdikti.go.id'
+    description:
+      'Commonly referred to as the Smart Indonesia Card programme. Intended for prospective students who have good academic performance but come from underprivileged families. Intended for Indonesian citizens who will take an undergraduate or diploma 4.',
   },
   {
     id: 'expertise-6',
     name: 'Beasiswa Chevening',
-    description: 'The Chevening Scholarship is a prestigious international scholarship...',
-    link: 'https://www.chevening.org'
-  },
+    description:
+      ' The Chevening Scholarship is a prestigious international scholarship funded by the UK Government. The scholarship offers future leaders from around the world the opportunity to study at top UK universities for one year.',
+  },
 ];
 ---
 
@@ -52,7 +52,7 @@ const features = [
             features.map((feature, index) => (
               <div
                 class="rounded-3xl px-4 transition"
-                x-data={{ id: ${index}, get isOpen() { return this.id === this.selected }, get isNextOpen() { return (this.id + 1) === this.selected } }}
+                x-data={`{ id: ${index}, get isOpen() { return this.id === this.selected }, get isNextOpen() { return (this.id + 1) === this.selected } }`}
                 x-bind:class="{ 'bg-primary-500/10 dark:bg-primary-400/10': isOpen }"
               >
                 <dt
@@ -60,9 +60,13 @@ const features = [
                   x-cloak
                   x-bind:class="{ 'border-transparent': isOpen || isNextOpen, 'border-primary-900/10 dark:border-primary-300/10': !(isOpen || isNextOpen) }"
                 >
-                  <a 
-                    href={feature.link} 
-                    class="group block w-full py-6 text-left transition focus-visible:outline-none hover:text-primary-600 dark:hover:text-primary-400"
+                  <button
+                    type="button"
+                    class="group block w-full py-6 text-left transition focus-visible:outline-none"
+                    aria-controls={feature.id}
+                    x-on:click="toggle(id)"
+                    aria-expanded="false"
+                    x-bind:aria-expanded="isOpen.toString()"
                   >
                     <div class="group-focus-visible:outline-primary-950 dark:group-focus-visible:outline-primary-200 flex items-center justify-between rounded-3xl group-focus-visible:outline group-focus-visible:outline-2 group-focus-visible:outline-offset-2">
                       <span class="font-medium">{feature.name}</span>
@@ -79,15 +83,12 @@ const features = [
                         </svg>
                       </span>
                     </div>
-                  </a>
+                  </button>
                 </dt>
                 <dd class="pb-6 pr-6" id={feature.id} x-show="isOpen" x-cloak x-collapse>
-                  <a 
-                    href={feature.link}
-                    class="text-primary-950/70 dark:text-primary-200/70 text-base block hover:text-primary-600 dark:hover:text-primary-400"
-                  >
+                  <p class="text-primary-950/70 dark:text-primary-200/70 text-base">
                     {feature.description}
-                  </a>
+                  </p>
                 </dd>
               </div>
             ))
